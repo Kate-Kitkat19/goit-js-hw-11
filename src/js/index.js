@@ -8,10 +8,13 @@ import {
 } from './notifications';
 import { formRef, inputRef, container, loadMoreBtnRef } from './refs';
 import { renderMarkup } from './renderMarkup';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 loadMoreBtnRef.disabled = true;
 formRef.addEventListener('submit', onSubmit);
 loadMoreBtnRef.addEventListener('click', onLoadMore);
+const lightbox = new SimpleLightbox('.gallery a');
 
 async function onSubmit(evt) {
   evt.preventDefault();
