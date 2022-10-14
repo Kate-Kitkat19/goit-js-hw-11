@@ -1,5 +1,3 @@
-
-
 export function renderMarkup(picture) {
   const {
     webformatURL,

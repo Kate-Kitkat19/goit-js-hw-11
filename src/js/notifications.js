@@ -12,4 +12,11 @@ function notifyEndOfResults() {
   );
 }
 
-export { notifyNoPictures, notifyEndOfResults };
+function notifyQuantity(total) {
+  Notiflix.Notify.success(`Hooray! We found ${total} images.`);
+}
+
+function notifyNoQuery() {
+  Notiflix.Notify.failure('Please write your request!')
+}
+export { notifyNoPictures, notifyEndOfResults, notifyQuantity, notifyNoQuery };

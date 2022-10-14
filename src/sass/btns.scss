@@ -42,3 +42,16 @@
     box-shadow: none;
   }
 }
+
+div.btn-wrapper {
+  display: flex;
+}
+
+.load-more {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+  &:disabled {
+    display: none;
+  }
+}

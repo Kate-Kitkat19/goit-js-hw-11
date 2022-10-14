@@ -1,6 +1,6 @@
-const submitBtnRef = document.querySelector('button[type="submit"]');
+const formRef = document.querySelector('form#search-form');
 const inputRef = document.querySelector('input[name="searchQuery"]');
 const container = document.querySelector('div.gallery');
-const loadMoreBtnRef = document.querySelector('button[data-action="load"]');
+const loadMoreBtnRef = document.querySelector('button.load-more');
 
-export { submitBtnRef, inputRef, container, loadMoreBtnRef };
+export { formRef, inputRef, container, loadMoreBtnRef };
