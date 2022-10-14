@@ -19,4 +19,14 @@ function notifyQuantity(total) {
 function notifyNoQuery() {
   Notiflix.Notify.failure('Please write your request!')
 }
-export { notifyNoPictures, notifyEndOfResults, notifyQuantity, notifyNoQuery };
+
+function notifyError() {
+  Notiflix.Notify.failure('Ooops, something went wrong! Please retry');
+}
+export {
+  notifyNoPictures,
+  notifyEndOfResults,
+  notifyQuantity,
+  notifyNoQuery,
+  notifyError,
+};

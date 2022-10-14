@@ -1,36 +1,28 @@
-import { getPictures, page } from './pixabayAPI';
+import { getPictures, page, query } from './pixabayAPI';
 import {
   notifyNoPictures,
   notifyEndOfResults,
   notifyQuantity,
   notifyNoQuery,
+  notifyError,
 } from './notifications';
 import { formRef, inputRef, container, loadMoreBtnRef } from './refs';
 import { renderMarkup } from './renderMarkup';
 
-let query = null;
 loadMoreBtnRef.disabled = true;
 formRef.addEventListener('submit', onSubmit);
 loadMoreBtnRef.addEventListener('click', onLoadMore);
 
 async function onSubmit(evt) {
   evt.preventDefault();
-  console.log(page, 'page before fetch');
+  loadMoreBtnRef.disabled = true;
   const currentQuery = evt.target.elements.searchQuery.value.trim();
-  if (query !== currentQuery) {
-    console.log('onSubmit   query', query);
-    console.log('onSubmit   currentQuery', currentQuery);
-    page = 1;
-    console.log('onSubmit   page', page)
-    query = currentQuery;
-  }
-  if (!query) {
+  if (!currentQuery) {
     notifyNoQuery();
     return;
   }
   try {
-    const searchData = await getPictures(query);
-    console.log('onSubmit   searchData', searchData);
+    const searchData = await getPictures(currentQuery);
     const { hits, totalHits } = searchData;
     if (hits.length === 0) {
       notifyNoPictures();
@@ -44,7 +36,8 @@ async function onSubmit(evt) {
       page += 1;
     }
   } catch (error) {
-    console.log('Щось пішло не так!', error);
+    console.log(error);
+    notifyError();
   }
 }
 
@@ -54,7 +47,6 @@ async function onLoadMore() {
   const { total, hits } = response;
   const markup = hits.map(item => renderMarkup(item)).join('');
   container.insertAdjacentHTML('beforeend', markup);
-  page += 1;
   console.log(page, 'page after fetch in LoadMoreBtn');
   const totalPagesLeft = total / 40 - page;
   checkIfMorePics(totalPagesLeft);
