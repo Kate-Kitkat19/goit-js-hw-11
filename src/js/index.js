@@ -6,15 +6,22 @@ import {
   notifyNoQuery,
   notifyError,
 } from './notifications';
-import { formRef, inputRef, container, loadMoreBtnRef } from './refs';
+import {
+  formRef,
+  inputRef,
+  container,
+  loadMoreBtnRef,
+  galleryLink,
+} from './refs';
 import { renderMarkup } from './renderMarkup';
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 loadMoreBtnRef.disabled = true;
 formRef.addEventListener('submit', onSubmit);
 loadMoreBtnRef.addEventListener('click', onLoadMore);
 const lightbox = new SimpleLightbox('.gallery a');
+galleryLink.addEventListener('click', onGalleryClick);
 
 async function onSubmit(evt) {
   evt.preventDefault();
@@ -60,4 +67,8 @@ function checkIfMorePics(pages) {
     loadMoreBtnRef.disabled = true;
     notifyEndOfResults();
   }
+}
+
+function onGalleryClick(e) {
+  e.preventDefault();
 }

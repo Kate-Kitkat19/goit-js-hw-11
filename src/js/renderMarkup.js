@@ -8,7 +8,8 @@ export function renderMarkup(picture) {
     comments,
     downloads,
   } = picture;
-  return `<div class="photo-card">
+  return `<a class="gallery__item" href="${largeImageURL}">
+  <div class="photo-card">
   <img src="${webformatURL}" alt="${tags}" loading="lazy"/>
   <div class="info">
     <p class="info-item">
@@ -28,5 +29,6 @@ export function renderMarkup(picture) {
       ${downloads}
     </p>
   </div>
-</div>`
+</div>
+</a>`;
 }
