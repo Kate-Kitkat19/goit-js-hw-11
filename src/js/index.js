@@ -32,7 +32,6 @@ async function onSubmit(evt) {
     container.innerHTML = markup;
     if (totalHits > 40) {
       loadMoreBtnRef.disabled = false;
-      page += 1;
     }
   } catch (error) {
     console.log(error);
