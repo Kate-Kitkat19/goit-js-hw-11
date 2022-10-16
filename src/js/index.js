@@ -22,14 +22,13 @@ async function onSubmit(evt) {
     return;
   }
   try {
-    const searchData = await getPictures(currentQuery);
-    const { hits, totalHits } = searchData;
+    const { hits, totalHits, total } = await getPictures(currentQuery);
     if (hits.length === 0) {
       notifyNoPictures();
       return;
     }
-    notifyQuantity(totalHits);
-    const markup = hits.map(item => renderMarkup(item)).join('');
+    notifyQuantity(total);
+    const markup = hits.map(renderMarkup).join('');
     container.innerHTML = markup;
     if (totalHits > 40) {
       loadMoreBtnRef.disabled = false;
@@ -42,12 +41,9 @@ async function onSubmit(evt) {
 }
 
 async function onLoadMore() {
-  console.log(page, 'page before fetch in LoadMoreBtn');
-  const response = await getPictures(query);
-  const { total, hits } = response;
-  const markup = hits.map(item => renderMarkup(item)).join('');
+  const { total, hits } = await getPictures(query);
+  const markup = hits.map(renderMarkup).join('');
   container.insertAdjacentHTML('beforeend', markup);
-  console.log(page, 'page after fetch in LoadMoreBtn');
   const totalPagesLeft = total / 40 - page;
   checkIfMorePics(totalPagesLeft);
 }
@@ -58,3 +54,4 @@ function checkIfMorePics(pages) {
     notifyEndOfResults();
   }
 }
+
